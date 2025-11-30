@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Global Air Quality Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Include Bootstrap for responsive layout and basic UI utilities -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Project styles that tweak appearance and modal visuals -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Top bar with app title -->
+  <nav class="navbar navbar-light bg-white shadow-sm">
+    <div class="container">
+      <span class="navbar-brand fw-bold">Global Air Quality Viewer</span>
+    </div>
+  </nav>
+
+  <!-- Hero: world image and short description -->
+  <header class="container my-4">
+    <div class="card hero-card shadow-sm">
+      <div class="row g-0">
+
+  <div class="col-md-6">
+          <img
+            src="images/world.jpg"
+            class="hero-image"
+            alt="World map"
+          />
+        </div>
+
+  <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
+          <h1 class="fw-bold">Check Air Quality Around the World</h1>
+          <p class="text-muted">Realtime PM2.5, PM10, Ozone, CO, and AQI</p>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+  <!-- City selector: pick a location to load live data -->
+  <div class="card shadow-sm p-3 mb-4 border-0">
+      <h5 class="fw-semibold mb-1">Select a City</h5>
+      <p class="text-muted small mb-3">Live air quality data</p>
+
+      <select id="citySelect" class="form-select w-auto" aria-label="Select a city">
+        <option value="la">Los Angeles (USA)</option>
+        <option value="nyc">New York City (USA)</option>
+        <option value="saopaulo">São Paulo (Brazil)</option>
+        <option value="sydney">Sydney (Australia)</option>
+      </select>
+    </div>
+
+  <!-- Air quality card: shows AQI and pollutant values for the chosen city -->
+  <div class="card shadow-sm p-4 border-0" id="aqCard">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 id="aqTitle" class="fw-bold mb-0">Air Quality</h4>
+          <p id="aqSubtitle" class="text-muted small mb-0">Select a city.</p>
+        </div>
+        <button id="keyButton" class="btn btn-outline-primary btn-sm">
+          Key
+        </button>
+      </div>
+
+      <div class="row mt-3 g-2 metrics-row">
+        <div class="col-6 col-md-4"><strong>US AQI:</strong> <span id="aqiValue">NO INFO</span></div>
+        <div class="col-6 col-md-4"><strong>PM2.5:</strong> <span id="pm25Value">NO INFO</span></div>
+        <div class="col-6 col-md-4"><strong>PM10:</strong> <span id="pm10Value">NO INFO</span></div>
+        <div class="col-6 col-md-4"><strong>Ozone (O₃):</strong> <span id="o3Value">NO INFO</span></div>
+        <div class="col-6 col-md-4"><strong>CO:</strong> <span id="coValue">NO INFO</span></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal elements used to show the Air Quality Key -->
+  <div id="shade" class="aq-modal-shade d-none"></div>
+
+  <div id="keyModal" class="aq-modal d-none" aria-hidden="true">
+    <div class="aq-modal-card">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="mb-0">Air Quality Key</h5>
+        <button id="modalClose" class="btn-close" aria-label="Close"></button>
+      </div>
+      <ul class="text-muted small mb-0">
+        <li><strong>US AQI:</strong> Air quality index (0–500)</li>
+        <li><strong>PM2.5:</strong> Fine particles entering lungs</li>
+        <li><strong>PM10:</strong> Dust, smoke, pollen</li>
+        <li><strong>Ozone (O₃):</strong> Lung irritant at high levels</li>
+        <li><strong>CO:</strong> Carbon monoxide from engines/fires</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Lightweight animation library used for small UI motion touches -->
+  <script src="https://unpkg.com/popmotion@8.7.3/dist/popmotion.global.min.js"></script>
+
+  <!-- App logic: fetches air quality data and updates the UI -->
+  <script src="weather.js"></script>
+</body>
+</html>
